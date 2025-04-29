@@ -15,6 +15,13 @@ function createWindow () {
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
 
+  setInterval(() => {
+    mainWindow.webContents.send('stream', new ReadableStream({
+      start: (controller) => {
+        controller.enqueue('Hello, world!')
+      }
+    }))
+  }, 1000)
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 }
